@@ -9,8 +9,8 @@ docker tag udagram-frontend:local "${DOCKER_USERNAME}/udagram-frontend:local"
 
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 
-docker push "${DOCKER_USERNAME}/udagram-reverseproxy" 
-docker push "${DOCKER_USERNAME}/udagram-api-user" 
-docker push "${DOCKER_USERNAME}/udagram-api-feed" 
-docker push "${DOCKER_USERNAME}/udagram-frontend:local"
+docker push "${DOCKER_USERNAME}/udagram-reverseproxy" &
+docker push "${DOCKER_USERNAME}/udagram-api-user" &
+docker push "${DOCKER_USERNAME}/udagram-api-feed" &
+docker push "${DOCKER_USERNAME}/udagram-frontend:local" &
 wait
