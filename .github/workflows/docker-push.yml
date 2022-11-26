@@ -33,7 +33,7 @@ jobs:
       run:
         docker-compose -f docker-compose-build.yaml build
 
-    -name: Docker push
+    - name: Docker push
       run: 
         docker push "${DOCKER_USERNAME}/udagram-reverseproxy" &
         docker push "${DOCKER_USERNAME}/udagram-api-user" &
