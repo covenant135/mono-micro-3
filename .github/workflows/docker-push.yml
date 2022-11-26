@@ -1,4 +1,4 @@
-name: Push Udagram Docker Images to DockerHub
+name: Doceker new push
 
 on:
   push:
