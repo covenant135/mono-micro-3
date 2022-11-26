@@ -1,13 +1,14 @@
 #!/bin/bash
 
+echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+
 docker-compose -f docker-compose-build.yaml build
 
-docker tag udagram-reverseproxy "${DOCKER_USERNAME}/udagram-reverseproxy:"
-docker tag udagram-api-user "${DOCKER_USERNAME}/udagram-api-user"
-docker tag udagram-api-feed "${DOCKER_USERNAME}/udagram-api-feed:"
-docker tag udagram-frontend:local "${DOCKER_USERNAME}/udagram-frontend:local"
+docker tag udagram-reverseproxy:v1 "covenantson/udagram-reverseproxy"
+docker tag udagram-api-user:v1 "covenantson/udagram-api-user"
+docker tag udagram-api-feed:v1 "covenantson/udagram-api-feed"
+docker tag udagram-frontend:local "covenantson/udagram-frontend:local"
 
-echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 
 docker push "${DOCKER_USERNAME}/udagram-reverseproxy" &
 docker push "${DOCKER_USERNAME}/udagram-api-user" &
