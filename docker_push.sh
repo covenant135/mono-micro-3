@@ -2,8 +2,6 @@
 
 docker-compose -f docker-compose-build.yaml build
 
-
-
 docker tag udagram-reverseproxy "covenantson/udagram-reverseproxy:"
 docker tag udagram-api-user "covenantson/udagram-api-user"
 docker tag udagram-api-feed "covenantson/udagram-api-feed:"
