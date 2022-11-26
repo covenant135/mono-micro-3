@@ -2,7 +2,7 @@
 
 docker-compose -f docker-compose-build.yaml build
 
-docker tag reverseproxy "${DOCKER_USERNAME}/udagram-reverseproxy:v1"
+docker tag udagram-reverseproxy "${DOCKER_USERNAME}/udagram-reverseproxy:v1"
 docker tag udagram-api-user "${DOCKER_USERNAME}/udagram-api-user:v1"
 docker tag udagram-api-feed "${DOCKER_USERNAME}/udagram-api-feed:v1"
 docker tag udagram-frontend:local "${DOCKER_USERNAME}/udagram-frontend:local"
