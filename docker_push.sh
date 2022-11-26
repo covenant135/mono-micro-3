@@ -1,13 +1,16 @@
-  shell: /usr/bin/bash -e {0}
-  env:
-    DOCKER_USERNAME: covenantson
-    DOCKER_PASSWORD: 123Apoms$$
-    POSTGRES_USERNAME: olaudagram
-    POSTGRES_PASSWORD: olaudagram
-    POSTGRES_DB: postgres
-    POSTGRES_HOST: laudagram.cdvuedw14gub.us-east-1.rds.amazonaws.com
-    AWS_ACCESS_KEY_ID: ASIAZXA7FJC3AZFIFATF
-    AWS_SECRET_ACCESS_KEY: w4ir1t5vDK1oRAsnkZUfGGgdv5DuFt7SP+7vitHr
-    AWS_REGION: us-east-1
-    AWS_BUCKET:olaudagram 
-    JWT_SECRET: testing
+#!/bin/bash
+
+docker-compose -f docker-compose-build.yaml build
+
+docker tag reverseproxy "${DOCKER_USERNAME}/udagram-reverseproxy:v1"
+docker tag udagram-api-user "${DOCKER_USERNAME}/udagram-api-user:v1"
+docker tag udagram-api-feed "${DOCKER_USERNAME}/udagram-api-feed:v1"
+docker tag udagram-frontend:local "${DOCKER_USERNAME}/udagram-frontend:latest"
+
+echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+
+docker push "${DOCKER_USERNAME}/udagram-reverseproxy:v1" &
+docker push "${DOCKER_USERNAME}/udagram-api-user:v1" &
+docker push "${DOCKER_USERNAME}/udagram-api-feed:v1" &
+docker push "${DOCKER_USERNAME}/udagram-frontend:latest" &
+wait
