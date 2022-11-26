@@ -42,4 +42,3 @@ venv/
 !.elasticbeanstalk/*.global.yml
 
 set_env.sh
-docker_push.sh
