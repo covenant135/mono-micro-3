@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-user
+  labels:
+    app: backend-user
+spec:
+  selector:
+    matchLabels:
+      app: backend-user
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backend-user
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: backend-user
+          imagePullPolicy: Always
+          image: covenantson/udagram-api-user:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: POSTGRES_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: udagram-secret
+                  key: POSTGRES_USERNAME
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: udagram-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: udagram-secret
+                  key: POSTGRES_DB
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: udagram-secret
+                  key: POSTGRES_HOST
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: udagram-secret
+                  key: JWT_SECRET
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-user
+  labels:
+    app: backend-user
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: backend-user
