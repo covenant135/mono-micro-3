@@ -5,45 +5,32 @@ metadata:
   labels:
     app: backend-user
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: backend-user
-  replicas: 1
   template:
     metadata:
       labels:
         app: backend-user
     spec:
-      restartPolicy: Always
       containers:
-        - name: backend-user
-          imagePullPolicy: Always
-          image: covenantson/udaapi-user:v2.5
-          ports:
-            - containerPort: 8080
-          env:
-            - name: POSTGRES_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: POSTGRES_USERNAME
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: POSTGRES_PASSWORD
-            - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: POSTGRES_DB
-            - name: POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: POSTGRES_HOST
-            - name: JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: JWT_SECRET
+      - name: udagram-api-user
+        image: 'covenantson/udaapi-user:v2.5'
+        envFrom:
+          - secretRef:
+              name: env-secret
+          - secretRef:
+              name: aws-secret
+          - configMapRef:
+              name: env-configmap
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1000Mi"
+            cpu: "100m"
+          limits:
+            memory: "2000Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 8080

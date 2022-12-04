@@ -5,73 +5,32 @@ metadata:
   labels:
     app: backend-feed
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: backend-feed
-  replicas: 1
   template:
     metadata:
       labels:
         app: backend-feed
     spec:
-      restartPolicy: Always
       containers:
-        - name: backend-feed
-          imagePullPolicy: Always
-          image: covenantson/udaapi-feed:v2.5
-          ports:
-            - containerPort: 8080
-          env:
-            - name: POSTGRES_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: POSTGRES_USERNAME
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: POSTGRES_PASSWORD
-            - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: POSTGRES_DB
-            - name: POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: POSTGRES_HOST
-            - name: AWS_ACCESS_KEY_ID
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: AWS_ACCESS_KEY_ID
-            - name: AWS_SECRET_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: AWS_SECRET_ACCESS_KEY
-            - name: AWS_REGION
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: AWS_REGION
-            - name: AWS_BUCKET
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: AWS_BUCKET
-            - name: JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: udagram-secret
-                  key: JWT_SECRET
-          volumeMounts:
-            - name: aws-secret
-              mountPath: '/root/.aws/'
-              readOnly: true
-      volumes:
-        - name: aws-secret
-          secret:
-            secretName: aws-secret
+      - name: udagram-api-feed
+        image: 'covenantson/udaapi-feed:v2.5'
+        envFrom:
+          - secretRef:
+              name: env-secret
+          - secretRef:
+              name: aws-secret
+          - configMapRef:
+              name: env-configmap
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1000Mi"
+            cpu: "100m"
+          limits:
+            memory: "2000Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 8080

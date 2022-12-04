@@ -1,0 +1,5 @@
+public frontend
+ac338bd0205d84f86b8d73373bada440-714455659.us-east-1.elb.amazonaws.com
+
+public reverseproxy
+a71ebadf90aae4ec3832a72f33049412-1689998172.us-east-1.elb.amazonaws.com
