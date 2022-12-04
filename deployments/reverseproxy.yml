@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reverseproxy
+  labels:
+    app: reverseproxy
+spec:
+  selector:
+    matchLabels:
+      app: reverseproxy
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: reverseproxy
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: reverseproxy
+          imagePullPolicy: Always
+          image: covenantson/reverseproxy:latest
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reverseproxy
+  labels:
+    app: reverseproxy
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: reverseproxy
