@@ -18,7 +18,7 @@ spec:
       containers:
         - name: backend-user
           imagePullPolicy: Always
-          image: covenantson/udagram-api-user:latest
+          image: covenantson/udagram-api-user:v2.1
           ports:
             - containerPort: 8080
           env:
