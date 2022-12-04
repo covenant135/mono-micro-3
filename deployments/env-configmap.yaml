@@ -4,7 +4,7 @@ metadata:
   name: env-configmap
   namespace: default
 data:
-  POSTGRES_HOST: olaudagram.cdvuedw14gub.us-east-1.rds.amazonaws.com
+  POSTGRES_HOST: olaudagram.c3jkoqmeeq08.us-east-1.rds.amazonaws.com
   POSTGRES_DB: postgres
   AWS_BUCKET: olaudagram
   AWS_REGION: us-east-1

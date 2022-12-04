@@ -18,7 +18,7 @@ spec:
       containers:
         - name: backend-feed
           imagePullPolicy: Always
-          image: covenantson/udagram-api-feed:v2.1
+          image: covenantson/udaapi-feed:v2.5
           ports:
             - containerPort: 8080
           env:
@@ -75,19 +75,3 @@ spec:
         - name: aws-secret
           secret:
             secretName: aws-secret
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-feed
-  labels:
-    app: backend-feed
-spec:
-  type: ClusterIP
-  ports:
-    - port: 8080
-      targetPort: 8080
-      protocol: TCP
-  selector:
-    app: backend-feed

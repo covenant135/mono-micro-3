@@ -18,7 +18,7 @@ spec:
       containers:
         - name: backend-user
           imagePullPolicy: Always
-          image: covenantson/udagram-api-user:v2.1
+          image: covenantson/udaapi-user:v2.5
           ports:
             - containerPort: 8080
           env:
@@ -47,19 +47,3 @@ spec:
                 secretKeyRef:
                   name: udagram-secret
                   key: JWT_SECRET
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-user
-  labels:
-    app: backend-user
-spec:
-  type: ClusterIP
-  ports:
-    - port: 8080
-      targetPort: 8080
-      protocol: TCP
-  selector:
-    app: backend-user

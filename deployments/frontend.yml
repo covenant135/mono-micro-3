@@ -28,22 +28,6 @@ spec:
               cpu: 256m
 
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: frontend
-  labels:
-    app: frontend
-spec:
-  type: LoadBalancer
-  ports:
-    - port: 80
-      targetPort: 80
-      protocol: TCP
-  selector:
-    app: frontend
-
----
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
