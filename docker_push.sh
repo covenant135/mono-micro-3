@@ -10,8 +10,8 @@ docker tag udagram-api-feed:v1 "covenantson/udagram-api-feed"
 docker tag udagram-frontend:local "covenantson/udagram-frontend:local"
 
 
-docker push "${DOCKER_USERNAME}/udagram-reverseproxy" &
-docker push "${DOCKER_USERNAME}/udagram-api-user" &
-docker push "${DOCKER_USERNAME}/udagram-api-feed" &
-docker push "${DOCKER_USERNAME}/udagram-frontend:local" &
+docker push "covenantson/udagram-reverseproxy" &
+docker push "covenantson/udagram-api-user" &
+docker push "covenantson/udagram-api-feed" &
+docker push "covenantson/udagram-frontend:local" &
 wait
