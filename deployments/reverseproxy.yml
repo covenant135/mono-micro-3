@@ -18,7 +18,7 @@ spec:
       containers:
         - name: reverseproxy
           imagePullPolicy: Always
-          image: covenantson/reverseproxy:latest
+          image: covenantson/udagram-reverseproxy:v2.1
           ports:
             - containerPort: 8080
 
