@@ -5,6 +5,7 @@ metadata:
   labels:
     app: reverseproxy
 spec:
+  type: LoadBalancer
   ports:
   - name: "8080"
     port: 8080
